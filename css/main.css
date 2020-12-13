@@ -122,6 +122,11 @@ textarea {
   /* 1 */
 }
 
+/*.chart-container {*/
+/*  width: 1000px;*/
+/*  height:100px*/
+/*}*/
+
 /*
  * Extends the .sr-only class to allow the element
  * to be focusable when navigated to via the keyboard:

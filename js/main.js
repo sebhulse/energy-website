@@ -1,10 +1,9 @@
-// import Chart from "https://cdn.jsdelivr.net/npm/chart.js@2.8.0"
 
 const api_url = 'https://api.carbonintensity.org.uk/generation';
 
+let generationData = new Map()
 let energyLabels = []
 let generationMixData = []
-let generationData = new Map()
 
 async function getGenMix() {
     const response = await fetch(api_url);
@@ -29,28 +28,23 @@ async function getGenMix() {
 
         let fuel = data.data.generationmix[i].fuel
         let percentage = data.data.generationmix[i].perc
-        console.log(fuel)
-        // energyLabels.push(fuel)
         generationData.set(fuel, percentage)
-        // generationMixData.push(percentage)
-        let para = document.createElement("P");
-        para.innerHTML = "The percentage mix of " + fuel + " is " + percentage + "%";
-        document.getElementById("myDiv").appendChild(para);
-    }
 
-    console.log(generationData)
+        // let para = document.createElement("P");
+        // para.innerHTML = "The percentage mix of " + fuel + " is " + percentage + "%";
+        // document.getElementById("myDiv").appendChild(para);
+    }
 
     // sort map
     generationData[Symbol.iterator] = function* () {
         yield* [...this.entries()].sort((a, b) => b[1] - a[1]);
     }
+
+    // create separate arrays from map to pass to chart
     for (let [key, value] of generationData) {
         energyLabels.push(key)
         generationMixData.push(value)
     }
-
-    console.log(energyLabels)
-    console.log(generationMixData)
 
 
     let ctx = document.getElementById('myChart').getContext('2d');
@@ -58,7 +52,7 @@ async function getGenMix() {
         type: 'pie',
         data: {
             datasets: [{
-                
+
                 backgroundColor: [
                     'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
@@ -75,7 +69,10 @@ async function getGenMix() {
             labels: energyLabels,
         },
 
-        options: {}
+        options: {
+            responsive:true,
+            maintainAspectRatio: false
+        }
     });
 
 }
