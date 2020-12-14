@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Current UK Energy</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -19,26 +19,47 @@
 
     <meta name="theme-color" content="#fafafa">
     <style>
-        h1 {text-align: center;}
-        p {text-align: center;}
-        div {text-align: center;}
+        .intensity {
+            color: darkgreen;
+            font-size: 32px;
+
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        p {
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        div {
+            text-align: center;
+        }
+
+        .units {
+            font-size: 12px;
+        }
+
     </style>
 </head>
 
 <body>
 <h1>Current UK Energy Generation Mix</h1>
-
-<div id="myDiv1"></div>
+<div id="myDiv"></div>
+<div id="myDiv2" class="intensity"></div>
+<div id="myDiv3" class="units"></div>
+<br>
 
 <div class="chart-container">
-    <canvas id="myChart" width="500", height="500"></canvas>
+    <canvas id="myChart" width="500" , height="500"></canvas>
 </div>
-<!--<div id="myDiv"></div>-->
+<br>
+<div id="myDiv1"></div>
 
-<!--<p>-->
-<!--    latitude: <span id="lat"></span>°<br />-->
-<!--    longitude: <span id="lon"></span>°-->
-<!--</p>-->
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script src="js/main.js"></script>
 

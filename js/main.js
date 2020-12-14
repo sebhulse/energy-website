@@ -1,5 +1,29 @@
 const api_url = 'https://api.carbonintensity.org.uk/generation';
 
+const api_url2 = 'https://api.carbonintensity.org.uk/intensity';
+
+async function getGenIntensity() {
+    const intensityResponse = await fetch(api_url2);
+    const intensityData = await intensityResponse.json();
+    const actualValue = intensityData.data[0].intensity.actual
+    const indexValue = intensityData.data[0].intensity.index
+
+
+    let carbonPara = document.createElement("P");
+    carbonPara.innerHTML = "Current Carbon Intensity"
+    document.getElementById("myDiv").appendChild(carbonPara);
+
+    let carbonIntensity = document.createElement("P");
+    carbonIntensity.innerHTML = actualValue
+    document.getElementById("myDiv2").appendChild(carbonIntensity);
+
+    let units = document.createElement("P");
+    units.innerHTML = "gCO" + "2".sub() + " / kWh"
+    document.getElementById("myDiv3").appendChild(units);
+
+}
+
+
 let generationData = new Map()
 let energyLabels = []
 let generationMixData = []
@@ -15,16 +39,15 @@ async function getGenMix() {
     let dateFrom = data.data.from
     let parsedDateFrom = new Date(dateFrom)
     // let DateStringFrom = parsedDateFrom.toDateString()
-    let TimeStringFrom = (parsedDateFrom.toLocaleTimeString('en-UK')).slice(0, 4) + " PM"
+    let TimeStringFrom = (parsedDateFrom.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }))
 
     let dateTo = data.data.to
     let parsedDateTo = new Date(dateTo)
     let parsedDateTo2 = Date.parse(parsedDateTo)
-    let TimeStringTo = (parsedDateTo.toLocaleTimeString('en-UK')).slice(0, 4) + " PM"
+    let TimeStringTo = (parsedDateTo.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }))
 
     // time difference
     let timeSinceRequested = requestTime - parsedDateTo2
-    console.log(timeSinceRequested)
 
     function msToTime(duration) {
         let milliseconds = parseInt((duration % 1000) / 100),
@@ -46,11 +69,9 @@ async function getGenMix() {
         return returnStatement;
     }
 
-    console.log(msToTime(timeSinceRequested))
-
 
     let timePara = document.createElement("P");
-    timePara.innerHTML = "This was the energy generation mix from " + TimeStringFrom + " to " + TimeStringTo
+    timePara.innerHTML = "This funky chart represents the energy generation mix from " + TimeStringFrom + " to " + TimeStringTo
         + " UTC today (last updated " + msToTime(timeSinceRequested) + " ago)."
     document.getElementById("myDiv1").appendChild(timePara);
 
@@ -118,7 +139,9 @@ async function getGenMix() {
 }
 
 // create page
+getGenIntensity()
 getGenMix();
+
 
 // update every half an hour
 setTimeout(function(){
