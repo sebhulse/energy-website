@@ -1,29 +1,57 @@
-
 const api_url = 'https://api.carbonintensity.org.uk/generation';
 
 let generationData = new Map()
 let energyLabels = []
 let generationMixData = []
+let requestTime = Date.now()
 
 async function getGenMix() {
     const response = await fetch(api_url);
     const data = await response.json();
-
 
     let generationMix = data.data.generationmix
 
     // date/time variables
     let dateFrom = data.data.from
     let parsedDateFrom = new Date(dateFrom)
-    let DateStringFrom = parsedDateFrom.toDateString()
+    // let DateStringFrom = parsedDateFrom.toDateString()
     let TimeStringFrom = (parsedDateFrom.toLocaleTimeString('en-UK')).slice(0, 4) + " PM"
 
     let dateTo = data.data.to
     let parsedDateTo = new Date(dateTo)
+    let parsedDateTo2 = Date.parse(parsedDateTo)
     let TimeStringTo = (parsedDateTo.toLocaleTimeString('en-UK')).slice(0, 4) + " PM"
 
+    // time difference
+    let timeSinceRequested = requestTime - parsedDateTo2
+    console.log(timeSinceRequested)
+
+    function msToTime(duration) {
+        let milliseconds = parseInt((duration % 1000) / 100),
+            seconds = Math.floor((duration / 1000) % 60),
+            minutes = Math.floor((duration / (1000 * 60)) % 60),
+            hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+        hours = (hours < 10) ? hours : hours;
+        minutes = (minutes < 10) ? minutes : minutes;
+        seconds = (seconds < 10) ? seconds : seconds;
+        
+        let returnStatement = seconds + " seconds"
+        if (hours > 0) {
+            returnStatement = hours + " hours, " + minutes + " minutes and " + seconds + " seconds"
+        } else if (minutes > 0) {
+            returnStatement = minutes + " minutes and " + seconds + " seconds"
+        }
+
+        return returnStatement;
+    }
+
+    console.log(msToTime(timeSinceRequested))
+
+
     let timePara = document.createElement("P");
-    timePara.innerHTML = "This energy mix was true from " + TimeStringFrom + " to " + TimeStringTo + " UTC on " + DateStringFrom;
+    timePara.innerHTML = "This was the energy generation mix from " + TimeStringFrom + " to " + TimeStringTo
+        + " UTC today (last updated " + msToTime(timeSinceRequested) + " ago)."
     document.getElementById("myDiv1").appendChild(timePara);
 
     // create map of json data
@@ -44,7 +72,7 @@ async function getGenMix() {
     function toTitleCase(str) {
         return str.replace(
             /\w\S*/g,
-            function(txt) {
+            function (txt) {
                 return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
             }
         );
@@ -75,8 +103,6 @@ async function getGenMix() {
                     'rgba(144, 190, 109, 1)'
                 ],
                 label: 'UK Energy Mix',
-                // backgroundColor: 'rgb(255, 99, 132)',
-                // borderColor: 'rgb(255, 99, 132)',
                 data: generationMixData
             }],
             labels: energyLabels,
@@ -95,4 +121,6 @@ async function getGenMix() {
 getGenMix();
 
 // update every half an hour
-setInterval(getGenMix, 1800000);
+setTimeout(function(){
+    location = ''
+},1800000)
