@@ -2,66 +2,67 @@
 <html class="no-js" lang="">
 
 <head>
-    <meta charset="utf-8">
-    <title>Current UK Energy</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <title>Current UK Energy</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <meta property="og:title" content="">
-    <meta property="og:type" content="">
-    <meta property="og:url" content="">
-    <meta property="og:image" content="">
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
 
-    <!-- Place favicon.ico in the root directory -->
+  <!-- Place favicon.ico in the root directory -->
 
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 
-    <meta name="theme-color" content="#fafafa">
-    <style>
-        .intensity {
-            color: darkgreen;
-            font-size: 32px;
+  <meta name="theme-color" content="#fafafa">
+  <style>
+    .intensity {
+      color: darkgreen;
+      font-size: 32px;
 
-        }
+    }
 
-        h1 {
-            text-align: center;
-        }
+    h1 {
+      text-align: center;
+    }
 
-        p {
-            text-align: center;
-            margin-top: 0;
-            margin-bottom: 0;
-        }
+    p {
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
 
-        div {
-            text-align: center;
-        }
+    div {
+      text-align: center;
+    }
 
-        .units {
-            font-size: 12px;
-        }
-
-    </style>
+    .units {
+      font-size: 12px;
+    }
+  </style>
 </head>
 
 <body>
-<h1>Current UK Energy Generation Mix</h1>
-<div id="myDiv"></div>
-<div id="myDiv2" class="intensity"></div>
-<div id="myDiv3" class="units"></div>
-<br>
+  <h1>Current UK Energy Generation Mix</h1>
+  <div id="myDiv"></div>
+  <div id="myDiv2" class="intensity"></div>
+  <div id="myDiv3" class="units"></div>
+  <br>
 
-<div class="chart-container">
+  <div class="chart-container">
     <canvas id="myChart" width="500" , height="500"></canvas>
-</div>
-<br>
-<div id="myDiv1"></div>
+  </div>
+  <br>
+  <div id="myDiv1"></div>
+  <div>
+    <p>Data is provided by the <a href="https://carbonintensity.org.uk/">Carbon Intensity API</a>.</p>
+  </div>
 
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script src="js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script src="js/main.js"></script>
 
 </body>
 
